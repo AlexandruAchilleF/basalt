@@ -1,12 +1,12 @@
 # Basalt - Motor minimal de analiză columnar cu indexare pe blocuri (zone maps)
 
 ### Descriere
-Basalt încarcă fișiere CSV cu istoricul curselor de taxi și răspunde rapid la întrebări analitice precum „care este bacșișul mediu pentru cursele plătite cu cardul?” sau „în ce interval orar au fost cele mai lungi curse?”. Basalt parcurge CSV-ul rând cu rând o singură dată la încărcare, și reorganizează datele pe coloane împărțite în blocuri și salvează pentru fiecare bloc valorile minime și maxime. La interogare, motorul citește doar coloanele necesare și compară filtrele direct cu aceste valori min/max pentru a sări complet peste blocurile irelevante, fără să le mai scaneze rând cu rând. Datele de test provin din setul public de date NYC TLC (New York City Taxi and Limousine Commission).
+Basalt încarcă fișiere CSV cu istoricul curselor de taxi și răspunde rapid la întrebări analitice precum „care este bacșișul mediu pentru cursele plătite cu cardul?” sau „în ce interval orar au fost cele mai lungi curse?”. Basalt parcurge CSV-ul rând cu rând o singură dată la încărcare, reorganizează datele pe coloane împărțite în blocuri și salvează pentru fiecare bloc valorile minime și maxime. La interogare, motorul citește doar coloanele necesare și compară filtrele direct cu aceste valori min/max pentru a sări complet peste blocurile irelevante, fără să le mai scaneze rând cu rând. Datele de test provin din setul public de date NYC TLC (New York City Taxi and Limousine Commission).
 
 ### Tema 0
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+- [x] Nume proiect (poate fi schimbat ulterior)
+- [x] Scurtă descriere a temei alese, ce v-ați propus să implementați
 
 ## Tema 1
 

@@ -1,7 +1,28 @@
 # Basalt - Motor minimal de analiză columnar cu indexare pe blocuri (zone maps)
 
 ### Descriere
+
 Basalt încarcă fișiere CSV cu istoricul curselor de taxi și răspunde rapid la întrebări analitice precum „care este bacșișul mediu pentru cursele plătite cu cardul?” sau „în ce interval orar au fost cele mai lungi curse?”. Basalt parcurge CSV-ul rând cu rând o singură dată la încărcare, reorganizează datele pe coloane împărțite în blocuri și salvează pentru fiecare bloc valorile minime și maxime. La interogare, motorul citește doar coloanele necesare și compară filtrele direct cu aceste valori min/max pentru a sări complet peste blocurile irelevante, fără să le mai scaneze rând cu rând. Datele de test provin din setul public de date NYC TLC (New York City Taxi and Limousine Commission).
+
+### Date
+
+Setul de date de test (assets/trips_september_2026_sample.csv) este un eșantion determinist de 20.000 de înregistrări extras din datele oficiale NYC TLC Trip Record Data pentru Yellow Taxi din septembrie 2026 (yellow_tripdata_2026-09.parquet), restrâns la 7 coloane necesare interogărilor curente. Semnificația și formatele fiecărui câmp sunt descrise în documentul oficial TLC Data Dictionary – Yellow Taxi Trip Records (https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page).
+
+Pentru regenerarea identică a fișierului, rulați în DuckDB:
+```sql
+COPY (
+  SELECT * FROM (
+    SELECT tpep_pickup_datetime, tpep_dropoff_datetime, trip_distance, PULocationID, payment_type, fare_amount, tip_amount
+    FROM 'yellow_tripdata_2026-09.parquet'
+    WHERE trip_distance > 0
+      AND fare_amount > 0
+      AND payment_type IN (1, 2)
+      AND tpep_pickup_datetime >= '2026-09-01'
+      AND tpep_pickup_datetime < '2026-10-01'
+  ) USING SAMPLE 20000 ROWS (reservoir, 42)
+  ORDER BY tpep_pickup_datetime
+) TO 'assets/trips_september_2026_sample.csv' (HEADER);
+```
 
 ### Tema 0
 

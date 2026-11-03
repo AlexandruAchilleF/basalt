@@ -4,13 +4,12 @@
 
 #include "ZoneMap.h"
 
-#include <algorithm>
 #include <stdexcept>
 
 ZoneMap::ZoneMap(double min, double max)
     : min_(min), max_(max)
 {
-    if (min_ >= max_)
+    if (min_ > max_)
         throw std::invalid_argument("ZoneMap: min must be <= max");
 }
 

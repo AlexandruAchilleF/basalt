@@ -9,7 +9,7 @@ class ZoneMap {
     double min_;
     double max_;
 public:
-    ZoneMap(double min_, double max_);
+    ZoneMap(double min, double max);
     bool canBeInside(double lo, double hi) const;
 };
 #endif //OOP_ZONEMAP_H

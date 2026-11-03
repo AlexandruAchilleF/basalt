@@ -2,6 +2,8 @@
 
 add_executable(${TESTS_EXECUTABLE_NAME}
     exemplu_test.cpp
+    ZoneMap_test.cpp
+    ColumnChunk_test.cpp
 )
 
 target_link_libraries(${TESTS_EXECUTABLE_NAME} PRIVATE ${MAIN_LIBRARY_NAME})

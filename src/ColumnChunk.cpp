@@ -19,3 +19,7 @@ namespace {
 ColumnChunk::ColumnChunk(const std::vector<double> &data)
     : values_(checkedValues(data)), zoneMap_(std::ranges::min(data), std::ranges::max(data)) {
 }
+
+bool ColumnChunk::canBeInside(double lo, double hi) const {
+    return zoneMap_.canBeInside(lo, hi);
+}

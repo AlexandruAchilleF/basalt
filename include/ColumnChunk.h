@@ -13,6 +13,7 @@ class ColumnChunk {
     ZoneMap zoneMap_;
 public:
     explicit ColumnChunk(const std::vector<double> &data);
+    bool canBeInside(double lo, double hi) const;
 };
 
 #endif //OOP_COLUMNCHUNK_H

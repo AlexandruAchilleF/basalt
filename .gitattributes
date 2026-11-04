@@ -1,1 +1,4 @@
 ext/** linguist-vendored
+cmake/** linguist-vendored
+scripts/** linguist-vendored
+launcher.command linguist-vendored

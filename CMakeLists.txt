@@ -71,6 +71,7 @@ target_sources(${MAIN_LIBRARY_NAME}
         src/internal/Detail.cpp
         src/ZoneMap.cpp
         src/ColumnChunk.cpp
+        src/RowGroup.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

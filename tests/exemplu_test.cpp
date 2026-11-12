@@ -52,5 +52,6 @@ int main() {
 
     testZoneMap();
     testColumnChunk();
+    testRowGroup();
     return 0;
 }

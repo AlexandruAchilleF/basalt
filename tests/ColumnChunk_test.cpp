@@ -22,4 +22,5 @@ void testColumnChunk() {
     assert(chunk.canBeInside(1, 4) && "can be in interval - inside");
     assert(!chunk.canBeInside(0, 1) && "cannot be in interval - fully left");
     assert(!chunk.canBeInside(6, 8) && "cannot be in interval - fully right");
+    assert(chunk.size() == 4 && "size must be correct");
 }

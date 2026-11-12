@@ -23,3 +23,7 @@ ColumnChunk::ColumnChunk(const std::vector<double> &data)
 bool ColumnChunk::canBeInside(double lo, double hi) const {
     return zoneMap_.canBeInside(lo, hi);
 }
+
+std::size_t ColumnChunk::size() const {
+    return values_.size();
+}

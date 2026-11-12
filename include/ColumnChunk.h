@@ -14,6 +14,7 @@ class ColumnChunk {
 public:
     explicit ColumnChunk(const std::vector<double> &data);
     bool canBeInside(double lo, double hi) const;
+    std::size_t size() const;
 };
 
 #endif //OOP_COLUMNCHUNK_H

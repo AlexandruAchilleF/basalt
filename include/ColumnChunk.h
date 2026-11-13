@@ -15,6 +15,7 @@ public:
     explicit ColumnChunk(const std::vector<double> &data);
     bool canBeInside(double lo, double hi) const;
     std::size_t size() const;
+    double valueAt(std::size_t row) const;
 };
 
 #endif //OOP_COLUMNCHUNK_H

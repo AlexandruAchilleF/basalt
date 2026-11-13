@@ -18,9 +18,20 @@ void testColumnChunk() {
         threw = true;
     }
     assert(threw && "empty values must throw");
+
     ColumnChunk chunk{std::vector<double>{2, 3, 4, 5}};
     assert(chunk.canBeInside(1, 4) && "can be in interval - inside");
     assert(!chunk.canBeInside(0, 1) && "cannot be in interval - fully left");
     assert(!chunk.canBeInside(6, 8) && "cannot be in interval - fully right");
     assert(chunk.size() == 4 && "size must be correct");
+    assert(chunk.valueAt(0) == 2 && "valueAt must return correct value");
+    assert(chunk.valueAt(3) == 5 && "valueAt must return correct value");
+
+    threw = false;
+    try {
+        chunk.valueAt(4);
+    } catch (const std::out_of_range&) {
+        threw = true;
+    }
+    assert(threw && "valueAt must throw for out-of-bounds access");
 }

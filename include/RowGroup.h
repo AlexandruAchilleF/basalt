@@ -12,6 +12,7 @@ class RowGroup {
     std::vector<ColumnChunk> columnChunks_;
 public:
     explicit RowGroup(const std::vector<ColumnChunk>& columnChunks);
+    bool canBeInside(std::size_t column, double lo, double hi) const;
 };
 
 

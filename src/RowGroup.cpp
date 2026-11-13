@@ -24,3 +24,7 @@ namespace {
 RowGroup::RowGroup(const std::vector<ColumnChunk>& columnChunks)
     : columnChunks_(checkedChunks(columnChunks)) {
 }
+
+bool RowGroup::canBeInside(std::size_t column, double lo, double hi) const {
+    return columnChunks_.at(column).canBeInside(lo, hi);
+}

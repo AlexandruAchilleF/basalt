@@ -64,4 +64,14 @@ void testRowGroup() {
 
     //canBeInside with valid column index and out of range lo/hi values
     assert(!rowGroup.canBeInside(0, 10.0, 20.0) && "cannot be inside with valid column index and out of range lo/hi values");
+
+    // sumWhere: tip sum for fares in [lo, hi])
+    std::vector<double> fares{12, 55, 30, 70};
+    std::vector<double> tips{2, 10, 0, 15};
+    std::vector<ColumnChunk> chunks3{ColumnChunk{fares}, ColumnChunk{tips}};
+    RowGroup rowGroup2{chunks3};
+    assert(rowGroup2.sumWhere(1, 0, 50, 100) == 25 && "sumWhere must return correct value");
+    assert(rowGroup2.sumWhere(1, 0, 200, 300) == 0 && "sumWhere must return correct value");
+
+
 }

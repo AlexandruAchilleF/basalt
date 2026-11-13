@@ -13,6 +13,7 @@ class RowGroup {
 public:
     explicit RowGroup(const std::vector<ColumnChunk>& columnChunks);
     bool canBeInside(std::size_t column, double lo, double hi) const;
+    double sumWhere(std::size_t sumColumn, std::size_t filterColumn, double lo, double hi) const;
 };
 
 

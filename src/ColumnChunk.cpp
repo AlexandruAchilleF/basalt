@@ -31,3 +31,8 @@ double ColumnChunk::valueAt(std::size_t row) const {
 std::size_t ColumnChunk::size() const {
     return values_.size();
 }
+
+std::ostream& operator<<(std::ostream& os, const ColumnChunk& columnChunk) {
+    os << "ColumnChunk: " << columnChunk.values_.size() << " rows (ZoneMap: " << columnChunk.zoneMap_ << ")";
+    return os;
+}

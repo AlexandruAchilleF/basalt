@@ -5,8 +5,10 @@
 #ifndef OOP_COLUMNCHUNK_H
 #define OOP_COLUMNCHUNK_H
 #include <vector>
+#include <ostream>
 
 #include "ZoneMap.h"
+
 
 class ColumnChunk {
     std::vector<double> values_;
@@ -16,6 +18,7 @@ public:
     bool canBeInside(double lo, double hi) const;
     std::size_t size() const;
     double valueAt(std::size_t row) const;
+    friend std::ostream& operator<<(std::ostream& os, const ColumnChunk& columnChunk);
 };
 
 #endif //OOP_COLUMNCHUNK_H

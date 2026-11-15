@@ -42,3 +42,11 @@ double RowGroup::sumWhere(std::size_t sumColumn, std::size_t filterColumn, doubl
     }
     return sum;
 }
+
+std::ostream& operator<<(std::ostream& os, const RowGroup& rowGroup) {
+    os << "RowGroup: " << rowGroup.columnChunks_[0].size() << " rows x " << rowGroup.columnChunks_.size() << " columns";
+    for (const auto& columnChunk : rowGroup.columnChunks_) {
+        os << "\n   " << columnChunk;
+    }
+    return os;
+}

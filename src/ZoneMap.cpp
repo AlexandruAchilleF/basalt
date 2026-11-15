@@ -20,3 +20,8 @@ bool ZoneMap::canBeInside(double lo, double hi) const {
         return false;
     return true;
 }
+
+std::ostream& operator<<(std::ostream& os, const ZoneMap& zoneMap) {
+    os << "[" << zoneMap.min_ << ", " << zoneMap.max_ << "]";
+    return os;
+}

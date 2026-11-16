@@ -31,3 +31,24 @@ namespace {
 Table::Table(const std::vector<std::string> &columnNames, const std::vector<RowGroup> &rowGroups)
     : columnNames_(checkedNames(columnNames)), rowGroups_(checkedRowGroups(rowGroups, columnNames_.size())) {
 }
+
+std::size_t Table::columnIndex(const std::string &columnName) const {
+    for (std::size_t i = 0; i < columnNames_.size(); ++i) {
+        if (columnNames_[i] == columnName) {
+            return i;
+        }
+    }
+    throw std::invalid_argument("Table: unknown column " + columnName);
+}
+
+double Table::sumWhere(const std::string &sumColumn, const std::string &filterColumn, double lo, double hi) const {
+    std::size_t sumIndex = columnIndex(sumColumn);
+    std::size_t filterIndex = columnIndex(filterColumn);
+    double total = 0.0;
+    for (const auto& rowGroup : rowGroups_) {
+        if (rowGroup.mayContain(filterIndex, lo, hi)) {
+            total += rowGroup.sumWhere(sumIndex, filterIndex, lo, hi);
+        }
+    }
+    return total;
+}

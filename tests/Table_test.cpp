@@ -52,5 +52,22 @@ void testTable() {
 
     //Valid -> True
     Table valid{std::vector<std::string>{"a", "b"}, rowGroups};
-    (void)  valid;
+
+    assert(valid.sumWhere("a", "b", 1.0, 3.0) == 18.0);
+
+    std::vector<ColumnChunk> chunks4{ColumnChunk{std::vector<double>{12, 55, 30, 70}}, ColumnChunk{std::vector<double>{2, 10, 0, 15}}};
+    std::vector<ColumnChunk> chunks5{ColumnChunk{std::vector<double>{100, 120}}, ColumnChunk{std::vector<double>{20, 25}}};
+    std::vector<RowGroup> rowGroups2{RowGroup{chunks4}, RowGroup{chunks5}};
+    Table trips = Table{std::vector<std::string>{"fare", "tip"}, rowGroups2};
+    assert(trips.sumWhere("tip", "fare", 50.0, 110.0) == 45.0);
+
+    assert(trips.sumWhere("tip", "fare", 1000.0, 2000.0) == 0.0);
+
+    threw = false;
+    try {
+        (void) trips.sumWhere("tip", "nu_exista", 1.0, 3.0);
+    } catch (const std::invalid_argument&) {
+        threw = true;
+    }
+    assert(threw && "sumWhere must throw for invalid column names");
 }

@@ -12,8 +12,10 @@
 class Table {
     std::vector<std::string> columnNames_;
     std::vector<RowGroup> rowGroups_;
+    std::size_t columnIndex(const std::string& columnName) const;
 public:
     explicit Table(const std::vector<std::string>& columnNames, const std::vector<RowGroup>& rowGroups);
+    double sumWhere(const std::string& sumColumn, const std::string& filterColumn, double lo, double hi) const;
 };
 
 #endif //OOP_TABLE_H

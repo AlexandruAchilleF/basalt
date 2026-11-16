@@ -109,3 +109,14 @@ Table Table::fromCsv(const std::string &path) {
     }
     return Table(columnNames, rowGroups);
 }
+
+std::ostream& operator<<(std::ostream& os, const Table& table) {
+    os << "Table: " << table.rowGroups_.size() << " row groups x " << table.columnNames_.size() << " columns\n";
+    for (const auto& columnName : table.columnNames_) {
+        os << columnName << " ";
+    }
+    for (const auto& rowGroup : table.rowGroups_) {
+        os << "\n" << rowGroup;
+    }
+    return os;
+}

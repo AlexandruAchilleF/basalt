@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <sstream>
 
 #include "TestSuites.h"
 #include "Table.h"
@@ -77,7 +78,13 @@ void testTable() {
     assert(trips.countSkipped("fare", 1000.0, 2000.0) == 2);
 
     Table taxi = Table::fromCsv("assets/trips_september_2026_sample.csv");
-    assert(taxi.countSkipped("tpep_pickup_datetime", 1788220800.0, 1788307199.0) == 19);
     // 2026-09-01 00:00:00 UTC – 23:59:59 UTC
+    assert(taxi.countSkipped("tpep_pickup_datetime", 1788220800.0, 1788307199.0) == 19);
     assert(std::abs(taxi.sumWhere("tip_amount", "tpep_pickup_datetime", 1788220800.0, 1788307199.0) - 2368.15) < 1e-6);
+
+    std::ostringstream oss;
+    oss << taxi;
+    assert(oss.str().find("20 row groups") != std::string::npos);
+    assert(oss.str().find("ZoneMap") != std::string::npos);
+
 }

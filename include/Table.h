@@ -8,6 +8,7 @@
 #include "RowGroup.h"
 #include <vector>
 #include <string>
+#include <ostream>
 
 class Table {
     std::vector<std::string> columnNames_;
@@ -19,6 +20,7 @@ public:
     double sumWhere(const std::string& sumColumn, const std::string& filterColumn, double lo, double hi) const;
     std::size_t countSkipped(const std::string& filterColumn, double lo, double hi) const;
     static Table fromCsv(const std::string& path);
+    friend std::ostream& operator<<(std::ostream& os, const Table& table);
 };
 
 #endif //OOP_TABLE_H

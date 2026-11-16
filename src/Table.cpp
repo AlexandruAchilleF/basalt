@@ -52,3 +52,15 @@ double Table::sumWhere(const std::string &sumColumn, const std::string &filterCo
     }
     return total;
 }
+
+std::size_t Table::countSkipped(const std::string &filterColumn, double lo, double hi) const {
+    std::size_t filterIndex = columnIndex(filterColumn);
+    std::size_t count = 0;
+    for (const auto& rowGroup : rowGroups_) {
+        if (!rowGroup.mayContain(filterIndex, lo, hi)) {
+            ++count;
+        }
+    }
+    return count;
+}
+

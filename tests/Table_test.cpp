@@ -70,4 +70,8 @@ void testTable() {
         threw = true;
     }
     assert(threw && "sumWhere must throw for invalid column names");
+
+    assert(trips.countSkipped("fare", 50.0, 110.0) == 0);
+    assert(trips.countSkipped("fare", 100.0, 120.0) == 1);
+    assert(trips.countSkipped("fare", 1000.0, 2000.0) == 2);
 }

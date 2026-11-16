@@ -16,6 +16,7 @@ class Table {
 public:
     explicit Table(const std::vector<std::string>& columnNames, const std::vector<RowGroup>& rowGroups);
     double sumWhere(const std::string& sumColumn, const std::string& filterColumn, double lo, double hi) const;
+    std::size_t countSkipped(const std::string& filterColumn, double lo, double hi) const;
 };
 
 #endif //OOP_TABLE_H

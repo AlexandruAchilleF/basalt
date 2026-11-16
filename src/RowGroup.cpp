@@ -25,8 +25,8 @@ RowGroup::RowGroup(const std::vector<ColumnChunk>& columnChunks)
     : columnChunks_(checkedChunks(columnChunks)) {
 }
 
-bool RowGroup::canBeInside(std::size_t column, double lo, double hi) const {
-    return columnChunks_.at(column).canBeInside(lo, hi);
+bool RowGroup::mayContain(std::size_t column, double lo, double hi) const {
+    return columnChunks_.at(column).mayContain(lo, hi);
 }
 
 double RowGroup::sumWhere(std::size_t sumColumn, std::size_t filterColumn, double lo, double hi) const {

@@ -13,7 +13,7 @@ ZoneMap::ZoneMap(double min, double max)
         throw std::invalid_argument("ZoneMap: min must be <= max");
 }
 
-bool ZoneMap::canBeInside(double lo, double hi) const {
+bool ZoneMap::mayContain(double lo, double hi) const {
     if (lo > hi)
         return false;
     if (hi < min_ || lo > max_)

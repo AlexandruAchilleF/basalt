@@ -12,7 +12,7 @@ class ZoneMap {
     double max_;
 public:
     ZoneMap(double min, double max);
-    bool canBeInside(double lo, double hi) const;
+    bool mayContain(double lo, double hi) const;
     friend std::ostream& operator<<(std::ostream& os, const ZoneMap& zoneMap);
 };
 #endif //OOP_ZONEMAP_H

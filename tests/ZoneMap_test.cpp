@@ -10,11 +10,11 @@
 
 void testZoneMap() {
     ZoneMap z{18.0, 24.0};
-    assert(z.canBeInside(20.0, 22.0) && "can be in interval - inside");
-    assert(z.canBeInside(24.0, 32.0) && "can be in interval - touches max edge");
-    assert(!z.canBeInside(30.0, 32.0) && "cannot be in interval - fully right");
-    assert(!z.canBeInside(10.0, 17.0) && "cannot be in interval - fully left");
-    assert(!z.canBeInside(30.0, 24.0) && "cannot be in interval - invalid interval");
+    assert(z.mayContain(20.0, 22.0) && "can be in interval - inside");
+    assert(z.mayContain(24.0, 32.0) && "can be in interval - touches max edge");
+    assert(!z.mayContain(30.0, 32.0) && "cannot be in interval - fully right");
+    assert(!z.mayContain(10.0, 17.0) && "cannot be in interval - fully left");
+    assert(!z.mayContain(30.0, 24.0) && "cannot be in interval - invalid interval");
 
     bool threw = false;
     try {

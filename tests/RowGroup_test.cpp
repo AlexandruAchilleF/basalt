@@ -49,21 +49,21 @@ void testRowGroup() {
     }
     assert(!threw && "same size row groups must not throw");
 
-    //canBeInside with invalid column index
+    //mayContain with invalid column index
     threw = false;
     RowGroup rowGroup{chunks2};
     try {
-        rowGroup.canBeInside(5, 0.0, 10.0);
+        rowGroup.mayContain(5, 0.0, 10.0);
     } catch (const std::out_of_range&) {
         threw = true;
     }
     assert(threw && "out of range row groups must throw");
 
-    //canBeInside with valid column index and lo/hi values
-    assert(rowGroup.canBeInside(0, 2.0, 3.0) && "can be inside with valid column index and lo/hi values");
+    //mayContain with valid column index and lo/hi values
+    assert(rowGroup.mayContain(0, 2.0, 3.0) && "can be inside with valid column index and lo/hi values");
 
-    //canBeInside with valid column index and out of range lo/hi values
-    assert(!rowGroup.canBeInside(0, 10.0, 20.0) && "cannot be inside with valid column index and out of range lo/hi values");
+    //mayContain with valid column index and out of range lo/hi values
+    assert(!rowGroup.mayContain(0, 10.0, 20.0) && "cannot be inside with valid column index and out of range lo/hi values");
 
     // sumWhere: tip sum for fares in [lo, hi])
     std::vector<double> fares{12, 55, 30, 70};

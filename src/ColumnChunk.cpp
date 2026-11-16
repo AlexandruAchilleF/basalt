@@ -20,8 +20,8 @@ ColumnChunk::ColumnChunk(const std::vector<double> &data)
 : values_(checkedValues(data)), zoneMap_(std::ranges::min(data), std::ranges::max(data)) {
 }
 
-bool ColumnChunk::canBeInside(double lo, double hi) const {
-    return zoneMap_.canBeInside(lo, hi);
+bool ColumnChunk::mayContain(double lo, double hi) const {
+    return zoneMap_.mayContain(lo, hi);
 }
 
 double ColumnChunk::valueAt(std::size_t row) const {

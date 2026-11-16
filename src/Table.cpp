@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <vector>
 #include <string>
+#include <csv.hpp>
+#include <date.h>
+#include <sstream>
 
 namespace {
     const std::vector<std::string>& checkedNames(const std::vector<std::string> &names) {
@@ -14,6 +17,7 @@ namespace {
         }
         return names;
     }
+
     const std::vector<RowGroup>& checkedRowGroups(const std::vector<RowGroup>& rowGroups, const std::size_t columnCount) {
         if (rowGroups.empty()) {
             throw std::invalid_argument("Table: needs at least one row group");
@@ -25,6 +29,28 @@ namespace {
             }
         }
         return rowGroups;
+    }
+
+    RowGroup makeRowGroup(const std::vector<std::vector<double>>& columns) {
+        std::vector<ColumnChunk> chunks;
+        for (const auto& column : columns) {
+            chunks.push_back(ColumnChunk{column});
+        }
+        return RowGroup{chunks};
+    }
+
+    double toNumber(csv::CSVField field) {
+        if (field.is_num()) {
+            return field.get<double>();
+        }
+
+        date::sys_seconds time;
+        std::istringstream iss{field.get<std::string>()};
+        iss >> date::parse("%Y-%m-%d %H:%M:%S", time);
+        if (iss.fail()) {
+            throw std::invalid_argument("Table: field is not a valid date or number: " + field.get<std::string>());
+        }
+        return static_cast<double>(time.time_since_epoch().count());
     }
 }
 
@@ -64,3 +90,22 @@ std::size_t Table::countSkipped(const std::string &filterColumn, double lo, doub
     return count;
 }
 
+Table Table::fromCsv(const std::string &path) {
+    csv::CSVReader reader(path);
+    const std::vector<std::string> columnNames = reader.get_col_names();
+    std::vector<RowGroup> rowGroups;
+    std::vector<std::vector<double>> columns(columnNames.size());
+    for (const auto& row : reader) {
+        for (std::size_t i = 0; i < columnNames.size(); ++i) {
+            columns[i].push_back(toNumber(row[i]));
+        }
+        if (columns[0].size() == rowsPerGroup) {
+            rowGroups.push_back(makeRowGroup(columns));
+            for (auto& column : columns) { column.clear(); }
+        }
+    }
+    if (!columns[0].empty()) {
+        rowGroups.push_back(makeRowGroup(columns));
+    }
+    return Table(columnNames, rowGroups);
+}

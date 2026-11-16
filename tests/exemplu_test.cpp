@@ -53,5 +53,6 @@ int main() {
     testZoneMap();
     testColumnChunk();
     testRowGroup();
+    testTable();
     return 0;
 }

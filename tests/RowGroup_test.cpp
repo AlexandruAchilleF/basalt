@@ -72,6 +72,4 @@ void testRowGroup() {
     RowGroup rowGroup2{chunks3};
     assert(rowGroup2.sumWhere(1, 0, 50, 100) == 25 && "sumWhere must return correct value");
     assert(rowGroup2.sumWhere(1, 0, 200, 300) == 0 && "sumWhere must return correct value");
-
-
 }

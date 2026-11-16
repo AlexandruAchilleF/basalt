@@ -5,5 +5,6 @@
 void testZoneMap();
 void testColumnChunk();
 void testRowGroup();
+void testTable();
 
 #endif //OOP_TESTSUITES_H

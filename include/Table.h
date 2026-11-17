@@ -17,6 +17,10 @@ class Table {
     std::size_t columnIndex(const std::string& columnName) const;
 public:
     explicit Table(const std::vector<std::string>& columnNames, const std::vector<RowGroup>& rowGroups);
+    Table(const Table& other);
+    friend void swap(Table& first, Table& second) noexcept;
+    Table& operator=(Table other);
+    ~Table();
     double sumWhere(const std::string& sumColumn, const std::string& filterColumn, double lo, double hi) const;
     std::size_t countSkipped(const std::string& filterColumn, double lo, double hi) const;
     static Table fromCsv(const std::string& path);

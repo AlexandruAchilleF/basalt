@@ -87,4 +87,11 @@ void testTable() {
     assert(oss.str().find("20 row groups") != std::string::npos);
     assert(oss.str().find("ZoneMap") != std::string::npos);
 
+    Table copy = trips;
+    assert(copy.sumWhere("tip", "fare", 50.0, 110.0) == 45.0);
+
+    copy = taxi;
+    assert(copy.countSkipped("tpep_pickup_datetime", 1788220800.0, 1788307199.0) == 19);
+
+    assert(trips.sumWhere("tip", "fare", 50.0, 110.0) == 45.0);
 }

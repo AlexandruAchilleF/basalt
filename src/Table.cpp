@@ -58,6 +58,23 @@ Table::Table(const std::vector<std::string> &columnNames, const std::vector<RowG
     : columnNames_(checkedNames(columnNames)), rowGroups_(checkedRowGroups(rowGroups, columnNames_.size())) {
 }
 
+Table::Table(const Table &other)
+: columnNames_(other.columnNames_), rowGroups_(other.rowGroups_) {
+}
+
+void swap(Table &first, Table &second) noexcept {
+    using std::swap;
+    swap(first.columnNames_, second.columnNames_);
+    swap(first.rowGroups_, second.rowGroups_);
+}
+
+Table &Table::operator=(Table other) {
+    swap(*this, other);
+    return *this;
+}
+
+Table::~Table() = default;
+
 std::size_t Table::columnIndex(const std::string &columnName) const {
     for (std::size_t i = 0; i < columnNames_.size(); ++i) {
         if (columnNames_[i] == columnName) {

@@ -47,6 +47,17 @@ std::size_t RowGroup::columnCount() const {
     return columnChunks_.size();
 }
 
+std::map<double, double> RowGroup::sumBy(std::size_t groupColumn, std::size_t sumColumn) const {
+    std::map<double, double> result;
+    const ColumnChunk& groupColumnChunk = columnChunks_.at(groupColumn);
+    const ColumnChunk& sumColumnChunk = columnChunks_.at(sumColumn);
+    for (std::size_t row = 0; row < groupColumnChunk.size(); ++row) {
+        const double groupValue = groupColumnChunk.valueAt(row);
+        result[groupValue] += sumColumnChunk.valueAt(row);
+    }
+    return result;
+}
+
 std::ostream& operator<<(std::ostream& os, const RowGroup& rowGroup) {
     os << "RowGroup: " << rowGroup.columnChunks_[0].size() << " rows x " << rowGroup.columnChunks_.size() << " columns";
     for (const auto& columnChunk : rowGroup.columnChunks_) {

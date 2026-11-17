@@ -72,4 +72,12 @@ void testRowGroup() {
     RowGroup rowGroup2{chunks3};
     assert(rowGroup2.sumWhere(1, 0, 50, 100) == 25 && "sumWhere must return correct value");
     assert(rowGroup2.sumWhere(1, 0, 200, 300) == 0 && "sumWhere must return correct value");
+
+    // sumBy: sum tips by payment
+    std::vector<double> payment{1,2,1};
+    std::vector<double> tip{5, 0, 3};
+    std::vector<ColumnChunk> chunks4{ColumnChunk{payment}, ColumnChunk{tip}};
+    RowGroup rowGroup3{chunks4};
+    const std::map<double, double> expected{{1, 8}, {2, 0}};
+    assert(rowGroup3.sumBy(0, 1) == expected && "sumBy must return correct value");
 }

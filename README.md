@@ -2,7 +2,7 @@
 
 ### Descriere
 
-Basalt încarcă fișiere CSV cu istoricul curselor de taxi și răspunde rapid la întrebări analitice precum „care este bacșișul mediu pentru cursele plătite cu cardul?” sau „în ce interval orar au fost cele mai lungi curse?”. Basalt parcurge CSV-ul rând cu rând o singură dată la încărcare, reorganizează datele pe coloane împărțite în blocuri și salvează pentru fiecare bloc valorile minime și maxime. La interogare, motorul citește doar coloanele necesare și compară filtrele direct cu aceste valori min/max pentru a sări complet peste blocurile irelevante, fără să le mai scaneze rând cu rând. Datele de test provin din setul public de date NYC TLC (New York City Taxi and Limousine Commission).
+Basalt încarcă fișiere CSV cu istoricul curselor de taxi și răspunde rapid la întrebări analitice precum „cât bacșiș s-a strâns pe 1 septembrie?”, „cât bacșiș s-a strâns pe fiecare metodă de plată?” sau „cât de mult s-ar comprima o coloană prin encodare de tip dictionary?”.
 
 ### Date
 
@@ -204,4 +204,7 @@ The [template repository](https://github.com/mcmarius/oop-template) itself is li
 - [rlutil](https://github.com/tapio/rlutil/tree/821fdca0191b314ee07b0fad2abe4ea973e45575) (WTFPL)
 - [csv-parser](https://github.com/vincentlaucsb/csv-parser/tree/5a7cc8ff97d23f475adb220f6d268cfd4f843ea2) v5.4.0 (MIT)
 - [date](https://github.com/HowardHinnant/date/tree/95d2ec962ce8ce0e4a830eef8ac2a88460c2a9f2) (MIT)
-- adăugați trimiteri **detaliate** către resursele externe care v-au ajutat sau pe care le-ați folosit
+- [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) – sursa datelor din `assets/` (Yellow Taxi, septembrie 2026)
+- Martin Kleppmann, *Designing Data-Intensive Applications*, O'Reilly, 2017, cap. 3 „Storage and Retrieval” – stocare coloanară și compresie
+- [Apache Parquet – Encodings](https://parquet.apache.org/docs/file-format/data-pages/encodings/) – encodarea Dictionary și bit-packing pentru coduri
+- [DuckDB – Samples](https://duckdb.org/docs/sql/samples) – reservoir sampling folosit la generarea eșantionului

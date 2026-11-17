@@ -17,7 +17,9 @@ public:
     bool mayContain(std::size_t column, double lo, double hi) const;
     double sumWhere(std::size_t sumColumn, std::size_t filterColumn, double lo, double hi) const;
     std::size_t columnCount() const;
+    std::size_t rowCount() const;
     std::map<double, double> sumBy(std::size_t groupColumn, std::size_t sumColumn) const;
+    std::size_t dictionaryEncodedBytes(std::size_t column) const;
     friend std::ostream& operator<<(std::ostream& os, const RowGroup& rowGroup);
 };
 

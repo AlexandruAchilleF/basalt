@@ -47,6 +47,14 @@ std::size_t RowGroup::columnCount() const {
     return columnChunks_.size();
 }
 
+std::size_t RowGroup::rowCount() const {
+    return columnChunks_[0].size();
+}
+
+std::size_t RowGroup::dictionaryEncodedBytes(std::size_t column) const {
+    return columnChunks_.at(column).dictionaryEncodedBytes();
+}
+
 std::map<double, double> RowGroup::sumBy(std::size_t groupColumn, std::size_t sumColumn) const {
     std::map<double, double> result;
     const ColumnChunk& groupColumnChunk = columnChunks_.at(groupColumn);
@@ -59,7 +67,7 @@ std::map<double, double> RowGroup::sumBy(std::size_t groupColumn, std::size_t su
 }
 
 std::ostream& operator<<(std::ostream& os, const RowGroup& rowGroup) {
-    os << "RowGroup: " << rowGroup.columnChunks_[0].size() << " rows x " << rowGroup.columnChunks_.size() << " columns";
+    os << "RowGroup: " << rowGroup.rowCount() << " rows x " << rowGroup.columnCount() << " columns";
     for (const auto& columnChunk : rowGroup.columnChunks_) {
         os << "\n   " << columnChunk;
     }

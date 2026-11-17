@@ -80,4 +80,16 @@ void testRowGroup() {
     RowGroup rowGroup3{chunks4};
     const std::map<double, double> expected{{1, 8}, {2, 0}};
     assert(rowGroup3.sumBy(0, 1) == expected && "sumBy must return correct value");
+
+    assert(rowGroup3.rowCount() == 3 && "rowCount must return correct value");
+    assert(rowGroup3.dictionaryEncodedBytes(0) == 17 && "dictionaryEncodedBytes must return correct value");
+    assert(rowGroup3.dictionaryEncodedBytes(1) == 25 && "dictionaryEncodedBytes must return correct value");
+
+    threw = false;
+    try {
+        (void) rowGroup3.dictionaryEncodedBytes(5);
+    } catch (const std::out_of_range&) {
+        threw = true;
+    }
+    assert(threw && "dictionaryEncodedBytes must throw for out-of-bounds access");
 }

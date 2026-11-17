@@ -107,6 +107,18 @@ std::size_t Table::countSkipped(const std::string &filterColumn, double lo, doub
     return count;
 }
 
+std::map<double, double> Table::sumBy(const std::string &groupColumn, const std::string &sumColumn) const {
+    std::size_t const groupIndex = columnIndex(groupColumn);
+    std::size_t const sumIndex = columnIndex(sumColumn);
+    std::map<double, double> result;
+    for (const auto& rowGroup : rowGroups_) {
+        for (const auto& [key, value] : rowGroup.sumBy(groupIndex, sumIndex)) {
+            result[key] += value;
+        }
+    }
+    return result;
+}
+
 Table Table::fromCsv(const std::string &path) {
     csv::CSVReader reader(path);
     const std::vector<std::string> columnNames = reader.get_col_names();

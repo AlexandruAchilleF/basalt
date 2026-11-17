@@ -94,4 +94,16 @@ void testTable() {
     assert(copy.countSkipped("tpep_pickup_datetime", 1788220800.0, 1788307199.0) == 19);
 
     assert(trips.sumWhere("tip", "fare", 50.0, 110.0) == 45.0);
+
+    std::vector<double> payment{1,2,1};
+    std::vector<double> tip{5, 0, 3};
+    std::vector<ColumnChunk> chunks6{ColumnChunk{payment}, ColumnChunk{tip}};
+    RowGroup rowGroup3{chunks6};
+    std::vector<double> payment2{1,2,2};
+    std::vector<double> tip2{2, 0, 1};
+    std::vector<ColumnChunk> chunks7{ColumnChunk{payment2}, ColumnChunk{tip2}};
+    RowGroup rowGroup4{chunks7};
+    Table table{{"payment", "tip"}, {rowGroup3, rowGroup4}};
+    const std::map<double, double> expected{{1, 10}, {2, 1}};
+    assert(table.sumBy("payment", "tip") == expected);
 }

@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <ostream>
+#include <map>
 
 class Table {
     std::vector<std::string> columnNames_;
@@ -23,6 +24,7 @@ public:
     ~Table();
     double sumWhere(const std::string& sumColumn, const std::string& filterColumn, double lo, double hi) const;
     std::size_t countSkipped(const std::string& filterColumn, double lo, double hi) const;
+    std::map<double, double> sumBy(const std::string& groupColumn, const std::string& sumColumn) const;
     static Table fromCsv(const std::string& path);
     friend std::ostream& operator<<(std::ostream& os, const Table& table);
 };

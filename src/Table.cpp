@@ -46,7 +46,7 @@ namespace {
 
         date::sys_seconds time;
         std::istringstream iss{field.get<std::string>()};
-        iss >> date::parse("%Y-%m-%d %H:%M:%S", time);
+        date::from_stream(iss, "%Y-%m-%d %H:%M:%S", time);
         if (iss.fail()) {
             throw std::invalid_argument("Table: field is not a valid date or number: " + field.get<std::string>());
         }

@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <algorithm>
 #include <vector>
+#include <set>
+#include <bit>
+#include <climits>
 
 namespace {
     const std::vector<double>& checkedValues(const std::vector<double> &data) {
@@ -30,6 +33,14 @@ double ColumnChunk::valueAt(std::size_t row) const {
 
 std::size_t ColumnChunk::size() const {
     return values_.size();
+}
+
+std::size_t ColumnChunk::dictionaryEncodedBytes() const {
+    const std::set<double> uniqueValues(values_.begin(), values_.end());
+    const std::size_t bitsPerCode = static_cast<std::size_t>(std::bit_width(uniqueValues.size() - 1));
+    const std::size_t codeBytes = (bitsPerCode * values_.size() + CHAR_BIT - 1) / CHAR_BIT;
+    const std::size_t dictionaryBytes = uniqueValues.size() * sizeof(double);
+    return dictionaryBytes + codeBytes;
 }
 
 std::ostream& operator<<(std::ostream& os, const ColumnChunk& columnChunk) {

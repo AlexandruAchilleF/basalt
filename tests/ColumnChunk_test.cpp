@@ -34,4 +34,13 @@ void testColumnChunk() {
         threw = true;
     }
     assert(threw && "valueAt must throw for out-of-bounds access");
+
+    ColumnChunk chunk2{std::vector<double>{38, 40, 38, 38, 42, 40, 38, 38}};
+    assert(chunk2.dictionaryEncodedBytes() == 26 && "dictionaryEncodedBytes must return correct value");
+
+    ColumnChunk chunk3{std::vector<double>{7, 7, 7}};
+    assert(chunk3.dictionaryEncodedBytes() == 8 && "dictionaryEncodedBytes must return correct value");
+
+    ColumnChunk chunk4{std::vector<double>{1, 2, 1}};
+    assert(chunk4.dictionaryEncodedBytes() == 17 && "dictionaryEncodedBytes must return correct value");
 }

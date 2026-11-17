@@ -18,6 +18,7 @@ public:
     bool mayContain(double lo, double hi) const;
     std::size_t size() const;
     double valueAt(std::size_t row) const;
+    std::size_t dictionaryEncodedBytes() const;
     friend std::ostream& operator<<(std::ostream& os, const ColumnChunk& columnChunk);
 };
 

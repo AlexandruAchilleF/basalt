@@ -119,6 +119,17 @@ std::map<double, double> Table::sumBy(const std::string &groupColumn, const std:
     return result;
 }
 
+double Table::compressionRatio(const std::string &column) const {
+    const std::size_t columnPosition = columnIndex(column);
+    std::size_t rawBytes = 0;
+    std::size_t encodedBytes = 0;
+    for (const auto& rowGroup : rowGroups_) {
+        rawBytes += rowGroup.rowCount() * sizeof(double);
+        encodedBytes += rowGroup.dictionaryEncodedBytes(columnPosition);
+    }
+    return static_cast<double>(rawBytes) / static_cast<double>(encodedBytes);
+}
+
 Table Table::fromCsv(const std::string &path) {
     csv::CSVReader reader(path);
     const std::vector<std::string> columnNames = reader.get_col_names();

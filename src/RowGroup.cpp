@@ -30,11 +30,10 @@ bool RowGroup::mayContain(std::size_t column, double lo, double hi) const {
 }
 
 double RowGroup::sumWhere(std::size_t sumColumn, std::size_t filterColumn, double lo, double hi) const {
-    std::size_t rowCount = columnChunks_.at(filterColumn).size();
     const ColumnChunk& filterColumnChunk = columnChunks_.at(filterColumn);
     const ColumnChunk& sumColumnChunk = columnChunks_.at(sumColumn);
     double sum = 0.0;
-    for (std::size_t row = 0; row < rowCount; ++row) {
+    for (std::size_t row = 0; row < rowCount(); ++row) {
         const double value = filterColumnChunk.valueAt(row);
         if (value >= lo && value <= hi) {
             sum += sumColumnChunk.valueAt(row);

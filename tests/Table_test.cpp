@@ -106,4 +106,18 @@ void testTable() {
     Table table{{"payment", "tip"}, {rowGroup3, rowGroup4}};
     const std::map<double, double> expected{{1, 10}, {2, 1}};
     assert(table.sumBy("payment", "tip") == expected);
+
+    assert(table.compressionRatio("payment") == 48.0 / 34.0);
+    assert(table.compressionRatio("tip") == 48.0 / 50.0);
+
+    threw = false;
+    try {
+        (void) table.compressionRatio("nu_exista");
+    } catch (const std::invalid_argument&) {
+        threw = true;
+    }
+    assert(threw && "compressionRatio must throw for invalid column names");
+
+    assert(taxi.compressionRatio("payment_type") > 1.0);
+    assert(taxi.compressionRatio("tpep_pickup_datetime") < 1.0);
 }

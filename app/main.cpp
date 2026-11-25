@@ -27,11 +27,13 @@ int main() {
     std::cout << "Compression ratio for column 'payment_type': " << trips.compressionRatio("payment_type") << "\n";
     std::cout << "Dictionary helps on low-cardinality columns and hurts on near-unique ones\n";
 
-    Table snapshot = trips;
-    snapshot = Table::fromCsv(tripsPath);
-    const double snapshotTips = snapshot.sumWhere("tip_amount", "tpep_pickup_datetime", septemberFirstStart, septemberFirstEnd);
-    std::cout << "Copy check: snapshot is an independent copy\n";
+    std::cout << "Copy check: copy-constructed, then assigned from the original table\n";
     std::cout << "Original tips for September 1, 2026: " << septemberFirstTips << "\n";
-    std::cout << "Snapshot tips for September 1, 2026: " << snapshotTips << "\n";
+    Table snapshot = trips;
+    const double copiedTips = snapshot.sumWhere("tip_amount", "tpep_pickup_datetime", septemberFirstStart, septemberFirstEnd);
+    std::cout << "After copy constructor tips for September 1, 2026: " << copiedTips << "\n";
+    snapshot = trips;
+    const double assignedTips = snapshot.sumWhere("tip_amount", "tpep_pickup_datetime", septemberFirstStart, septemberFirstEnd);
+    std::cout << "After copy assignment tips for September 1, 2026: " << assignedTips << "\n";
     return 0;
 }
